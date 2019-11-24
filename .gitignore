@@ -1,0 +1,20 @@
+.env
+
+# editors
+.idea/
+.vscode/
+*.iml
+
+# dependencies
+node_modules/
+
+# testing
+coverage/
+
+# production
+dist/
+
+# misc
+.DS_Store
+.env
+npm-debug.log
