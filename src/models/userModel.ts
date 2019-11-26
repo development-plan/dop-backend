@@ -3,7 +3,7 @@ import { randomBytes } from 'crypto';
 
 import encryptPassword from '../utils/encryptPassword';
 
-interface IUser extends mongoose.Document {
+export interface IUser extends mongoose.Document {
   name: string;
   nickname: string;
   email: string;
