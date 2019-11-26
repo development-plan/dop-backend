@@ -1,0 +1,34 @@
+import cors from 'cors';
+import express from 'express';
+import path from 'path';
+
+import routes from './routes';
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', routes);
+
+interface Err extends Error {
+  status: number;
+  data?: any;
+}
+
+// eslint-disable-next-line no-unused-vars
+app.get('/', (req: express.Request, res: express.Response) => {
+  res.send('Hello World!');
+});
+
+// eslint-disable-next-line no-unused-vars
+app.use((err: Err, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err.stack);
+  res.status(err.status || 500).json({
+    message: err.message,
+  });
+});
+
+export default app;
