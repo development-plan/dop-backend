@@ -3,7 +3,7 @@ import { randomBytes } from 'crypto';
 
 import encryptPassword from '../utils/encryptPassword';
 
-export interface IUser extends mongoose.Document {
+export interface IUserPayload {
   name: string;
   nickname: string;
   email: string;
@@ -12,6 +12,8 @@ export interface IUser extends mongoose.Document {
   image: string;
   timestamp: number;
 }
+
+export interface IUser extends IUserPayload, mongoose.Document {}
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -41,6 +43,12 @@ userSchema.pre<IUser>('save', function (done) {
   this.password = `${encryptedPassword}|${salt}`;
   return done();
 });
+
+userSchema.statics.createUser = async function (userPayload: IUserPayload) {
+  const newUser = new this(userPayload);
+  const savedUser = await newUser.save();
+  return savedUser.id;
+};
 
 userSchema.methods.verifyPassword = function (userPassword: string) {
   const [encrypted, salt] = this.password.split('|');
