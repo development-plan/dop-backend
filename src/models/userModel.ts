@@ -10,7 +10,6 @@ export interface IUserPayload {
   password: string;
   tel: string;
   image: string;
-  timestamp: number;
 }
 
 export interface IUser extends IUserPayload, mongoose.Document {}
@@ -22,11 +21,11 @@ export interface IUserModel extends IUser {
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   image: { type: String, required: true },
+  joined: { type: Date, default: Date.now },
   name: { type: String, required: true },
   nickname: { type: String, required: true },
   password: { type: String, required: true },
   tel: { type: String, required: true },
-  timestamp: { type: Number, default: Date.now },
 });
 
 userSchema.method('toJSON', function () {
