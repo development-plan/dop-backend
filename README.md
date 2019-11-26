@@ -7,7 +7,7 @@
 
 ```js
 {
-  _id: ObjectId('507f1f77bcf86cd799439011'), // 식별자
+  id: '507f1f77bcf86cd799439011', // 식별자
   name: '여준호', // 본명
   nickname: '주노', // 닉네임
   email: 'test@example.com', // 이메일
