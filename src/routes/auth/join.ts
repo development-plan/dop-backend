@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { keys } from 'ts-transformer-keys';
 import expressAsyncHandler from 'express-async-handler';
+import { keys } from 'ts-transformer-keys';
 
 import userModel, { IUser } from '../../models/userModel';
 

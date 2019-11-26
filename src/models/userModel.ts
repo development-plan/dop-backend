@@ -1,5 +1,5 @@
-import * as mongoose from 'mongoose';
 import { randomBytes } from 'crypto';
+import * as mongoose from 'mongoose';
 
 import encryptPassword from '../utils/encryptPassword';
 
@@ -15,13 +15,17 @@ export interface IUserPayload {
 
 export interface IUser extends IUserPayload, mongoose.Document {}
 
+export interface IUserModel extends IUser {
+  verifyPassword(userPassword: string): boolean;
+}
+
 const userSchema = new mongoose.Schema({
+  email: { type: String, required: true },
+  image: { type: String, required: true },
   name: { type: String, required: true },
   nickname: { type: String, required: true },
-  email: { type: String, required: true },
   password: { type: String, required: true },
   tel: { type: String, required: true },
-  image: { type: String, required: true },
   timestamp: { type: Number, default: Date.now },
 });
 
@@ -50,12 +54,12 @@ userSchema.statics.createUser = async function (userPayload: IUserPayload) {
   return savedUser.id;
 };
 
-userSchema.methods.verifyPassword = function (userPassword: string) {
+userSchema.method('verifyPassword', function (userPassword: string) {
   const [encrypted, salt] = this.password.split('|');
   const password = encryptPassword(userPassword, salt);
   return (password === encrypted);
-};
+});
 
-const userModel = mongoose.model<IUser>('User', userSchema);
+const userModel = mongoose.model<IUserModel>('User', userSchema);
 
 export default userModel;
