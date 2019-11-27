@@ -1,5 +1,5 @@
 import { randomBytes } from 'crypto';
-import * as mongoose from 'mongoose';
+import mongoose, { Model, Schema } from 'mongoose';
 
 import encryptPassword from '../utils/encryptPassword';
 
@@ -19,7 +19,7 @@ export interface IUserModel extends IUser {
   verifyPassword(userPassword: string): boolean;
 }
 
-const userSchema = new mongoose.Schema({
+const userSchema: Schema = new mongoose.Schema({
   email: { type: String, required: true },
   image: { type: String, required: true },
   joined: { type: Date, default: Date.now },
@@ -29,24 +29,24 @@ const userSchema = new mongoose.Schema({
   tel: { type: String, required: true },
 });
 
-userSchema.pre<IUser>('save', function (done) {
+userSchema.pre<IUser>('save', function (done): any {
   if (!this.isModified('password')) {
     return done();
   }
-  const salt = randomBytes(10).toString('base64');
-  const encryptedPassword = encryptPassword(this.password, salt);
+  const salt: string = randomBytes(10).toString('base64');
+  const encryptedPassword: string = encryptPassword(this.password, salt);
   this.password = `${encryptedPassword}|${salt}`;
   return done();
 });
 
 userSchema.statics.createUser = async (userPayload: IUserPayload) => {
-  const newUser = new userModel(userPayload);
-  const savedUser = await newUser.save();
+  const newUser: IUserModel = new userModel(userPayload);
+  const savedUser: IUserModel = await newUser.save();
   return savedUser.id;
 };
 
-userSchema.methods.toJSON = function () {
-  const obj = this.toObject();
+userSchema.methods.toJSON = function (): any {
+  const obj: any = this.toObject();
   obj.id = obj._id;
   ['_id', '__v', 'password'].map((key) => {
     delete obj[key];
@@ -54,12 +54,12 @@ userSchema.methods.toJSON = function () {
   return obj;
 };
 
-userSchema.methods.verifyPassword = function (userPassword: string) {
+userSchema.methods.verifyPassword = function (userPassword: string): boolean {
   const [encrypted, salt] = this.password.split('|');
-  const password = encryptPassword(userPassword, salt);
+  const password: string = encryptPassword(userPassword, salt);
   return (password === encrypted);
 };
 
-const userModel = mongoose.model<IUserModel>('User', userSchema);
+const userModel: Model<IUserModel> = mongoose.model<IUserModel>('User', userSchema);
 
 export default userModel;

@@ -1,5 +1,5 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 
-const router = Router();
+const router: express.IRouter = Router();
 
 export default router;

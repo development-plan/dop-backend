@@ -1,11 +1,11 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import jwtSimple from 'jwt-simple';
 
 import jwtConfig from '../../../jwtConfig';
 import userModel, { IUserModel } from '../../models/userModel';
 
-const router = Router();
+const router: express.IRouter = Router();
 
 interface ILoginPayload {
   email: string;
@@ -34,8 +34,8 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
         });
       }
 
-      const { id } = user;
-      const token = jwtSimple.encode({ id }, jwtConfig.jwtSecret);
+      const { id }: { id: string } = user;
+      const token: string = jwtSimple.encode({ id }, jwtConfig.jwtSecret);
       return res.json({ id, token });
     });
 }));

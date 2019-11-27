@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose, { Model, Schema } from 'mongoose';
 
 export interface IPostPayload {
   content: string;
@@ -16,7 +16,7 @@ export interface IPostModel extends IPost {
   likes: number;
 }
 
-const postSchema = new mongoose.Schema({
+const postSchema: Schema = new mongoose.Schema({
   author: { type: String },
   content: { type: String, required: true },
   created: { type: Date, default: Date.now },
@@ -27,13 +27,13 @@ const postSchema = new mongoose.Schema({
 });
 
 postSchema.statics.createPost = async (postPayload: IPostPayload, authorID: string) => {
-  const newPost = new postModel(postPayload);
-  const savedPost = await newPost.save();
+  const newPost: IPostModel = new postModel(postPayload);
+  const savedPost: IPostModel = await newPost.save();
   return savedPost;
 };
 
-postSchema.methods.toJSON = function () {
-  const obj = this.toObject();
+postSchema.methods.toJSON = function (): any {
+  const obj: any = this.toObject();
   obj.id = obj._id;
   ['_id', '__v'].map((key) => {
     delete obj[key];
@@ -41,6 +41,6 @@ postSchema.methods.toJSON = function () {
   return obj;
 };
 
-const postModel = mongoose.model<IPostModel>('Post', postSchema);
+const postModel: Model<IPostModel> = mongoose.model<IPostModel>('Post', postSchema);
 
 export default postModel;

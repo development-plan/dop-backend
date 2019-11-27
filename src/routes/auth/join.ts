@@ -1,15 +1,16 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 
 import userModel, { IUserModel, IUserPayload } from '../../models/userModel';
+import TArrayWithLength from '../../utils/TArrayWithLength';
 
-const router = Router();
+const router: express.IRouter = Router();
 
 router.post('/', expressAsyncHandler(async (req, res, _) => {
   const user: IUserPayload = req.body;
 
   // validation
-  const userKeys = ['name', 'nickname', 'email', 'password', 'tel', 'image'];
+  const userKeys: TArrayWithLength<string, 6> = ['name', 'nickname', 'email', 'password', 'tel', 'image'];
   userKeys.map((key) => {
     if (!Object(user).hasOwnProperty(key)) {
       return res.status(400).json({
@@ -27,7 +28,7 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
   }
 
   // create user
-  const id = await userModel.schema.statics.createUser(user);
+  const id: string = await userModel.schema.statics.createUser(user);
   return res.json({ id });
 }));
 

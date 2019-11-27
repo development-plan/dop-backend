@@ -1,7 +1,7 @@
 import { pbkdf2Sync } from 'crypto';
 
-const encryptPassword = (password: string, salt: string) => {
-  const encrypted = pbkdf2Sync(
+export default function encryptPassword(password: string, salt: string): string {
+  const encrypted: string = pbkdf2Sync(
     password,
     salt,
     200000,
@@ -9,6 +9,4 @@ const encryptPassword = (password: string, salt: string) => {
     'sha512',
   ).toString('base64');
   return encrypted;
-};
-
-export default encryptPassword;
+}

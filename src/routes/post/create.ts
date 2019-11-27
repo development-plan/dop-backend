@@ -3,7 +3,7 @@ import expressAsyncHandler from 'express-async-handler';
 import { authMiddleware, IAuthRequest } from '../../middlewares/auth';
 import postModel, { IPostPayload } from '../../models/postModel';
 
-const router = Router();
+const router: express.IRouter = Router();
 
 router.use('/', authMiddleware);
 router.post('/', expressAsyncHandler(

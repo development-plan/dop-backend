@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 
 import create from './create';
 import edit from './edit';
@@ -6,12 +6,12 @@ import like from './like';
 import remove from './remove';
 import view from './view';
 
-const router = Router();
+const router: express.IRouter = Router();
 
-router.use('/create', create);
-router.use('/edit', edit);
-router.use('/like', like);
-router.use('/remove', remove);
-router.use('/view', view);
+router.use('/', create);
+router.use('/', edit);
+router.use('/', like);
+router.use('/', remove);
+router.use('/', view);
 
 export default router;
