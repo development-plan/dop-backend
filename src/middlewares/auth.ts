@@ -3,7 +3,7 @@ import passport from 'passport';
 import passportJwt from 'passport-jwt';
 
 import jwtConfig from '../../jwtConfig';
-import userModel, { IUser } from '../models/userModel';
+import userModel, { IUser, IUserModel } from '../models/userModel';
 
 const ExtractJwt = passportJwt.ExtractJwt;
 const Strategy = passportJwt.Strategy;
@@ -35,10 +35,13 @@ export default function auth() {
   };
 }
 
+export interface IAuthRequest extends express.Request {
+  identity: IUserModel;
+}
+
 export const authMiddleware =
-  (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const user = auth().authenticate();
-    // tslint:disable-next-line:no-console
-    console.log(user);
+  async (req: IAuthRequest, _: express.Response, next: express.NextFunction) => {
+    const id = auth().authenticate();
+    req.identity = await userModel.findById({ id });
     return next();
   };
