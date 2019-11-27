@@ -5,7 +5,7 @@ import app from './app';
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(
-  process.env.MONGO_URI || 'mongodb://localhost:27017/test',
+  'mongodb://localhost:27017/test',
   { useNewUrlParser: true },
   (err) => {
     if (err) {
@@ -16,8 +16,6 @@ mongoose.connect(
   },
 );
 
-app.listen(
-  PORT,
+app
   // tslint:disable-next-line:no-console
-  () => console.log(`Listening on: http://localhost:${PORT}`),
-);
+  .listen(PORT, () => console.log(`Listening on: http://localhost:${PORT}`))

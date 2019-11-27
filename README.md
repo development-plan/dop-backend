@@ -64,7 +64,7 @@
 
 ```json
 {
-  "token": "JWT",
-  "refresh_token": "JWT_REFRESH_TOKEN"
+  "id": "507f1f77bcf86cd799439011",
+  "token": "ACCESS_TOKEN"
 }
 ```

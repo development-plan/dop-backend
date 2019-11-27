@@ -47,17 +47,17 @@ userSchema.pre<IUser>('save', function (done) {
   return done();
 });
 
-userSchema.statics.createUser = async function (userPayload: IUserPayload) {
-  const newUser = new this(userPayload);
+userSchema.statics.createUser = async (userPayload: IUserPayload) => {
+  const newUser = new userModel(userPayload);
   const savedUser = await newUser.save();
   return savedUser.id;
 };
 
-userSchema.method('verifyPassword', function (userPassword: string) {
+userSchema.methods.verifyPassword = function (userPassword: string) {
   const [encrypted, salt] = this.password.split('|');
   const password = encryptPassword(userPassword, salt);
   return (password === encrypted);
-});
+};
 
 const userModel = mongoose.model<IUserModel>('User', userSchema);
 

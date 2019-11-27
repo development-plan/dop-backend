@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 
-import userModel, { IUser } from '../../models/userModel';
+import userModel, { IUser, IUserModel } from '../../models/userModel';
 
 const router = Router();
 
@@ -13,20 +13,22 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
   userKeys.map((key) => {
     if (!Object(user).hasOwnProperty(key)) {
       return res.status(400).json({
-        message: `Field '${key}' required`,
+        message: `필드 '${key}'의 값이 필요합니다.`,
       });
     }
   });
 
-  // create user
-  try {
-    const id = await userModel.schema.statics.createUser(user);
-    return res.json({ id });
-  } catch (err) {
-    return res.status(500).json({
-      message: err.message,
+  // if already user with same email exist
+  const dup: IUserModel = await userModel.findOne({ email: user.email });
+  if (dup) {
+    return res.status(400).json({
+      message: '같은 이메일의 사용자가 이미 존재합니다.',
     });
   }
+
+  // create user
+  const id = await userModel.schema.statics.createUser(user);
+  return res.json({ id });
 }));
 
 export default router;
