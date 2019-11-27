@@ -9,8 +9,8 @@ const router: express.IRouter = Router();
 router.use('/', authMiddleware);
 router.get('/', expressAsyncHandler(
   async (req: IAuthRequest, res: express.Response, _: express.NextFunction) => {
-    const posts = await postModel.find({});
-    return posts;
+    const posts: any = await postModel.find({});
+    return res.json({ posts });
   }),
 );
 
@@ -18,7 +18,9 @@ router.get('/', expressAsyncHandler(
 router.use('/:postID', authMiddleware);
 router.get('/:postID', expressAsyncHandler(
   async (req: IAuthRequest, res: express.Response, _: express.NextFunction) => {
+    const id: string = req.params.postID;
     const post: IPostModel = await postModel.findById({ id });
+    return res.json({ post });
   }),
 );
 
