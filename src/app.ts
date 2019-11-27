@@ -22,12 +22,12 @@ interface IError extends Error {
   data?: any;
 }
 
-// eslint-disable-next-line no-unused-vars
+// tslint:disable-next-line:no-unused-vars
 app.get('/', (req: express.Request, res: express.Response) => {
   res.send('Hello World!');
 });
 
-// eslint-disable-next-line no-unused-vars
+// tslint:disable-next-line:no-unused-vars
 app.use((err: IError, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack);
   res.status(err.status || 500).json({

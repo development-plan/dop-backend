@@ -4,12 +4,12 @@ import * as mongoose from 'mongoose';
 import encryptPassword from '../utils/encryptPassword';
 
 export interface IUserPayload {
+  email: string;
+  image: string;
   name: string;
   nickname: string;
-  email: string;
   password: string;
   tel: string;
-  image: string;
 }
 
 export interface IUser extends IUserPayload, mongoose.Document {}
@@ -28,15 +28,6 @@ const userSchema = new mongoose.Schema({
   tel: { type: String, required: true },
 });
 
-userSchema.method('toJSON', function () {
-  const obj = this.toObject();
-  obj.id = obj._id;
-  ['_id', '__v', 'password'].map((key) => {
-    delete obj[key];
-  });
-  return obj;
-});
-
 userSchema.pre<IUser>('save', function (done) {
   if (!this.isModified('password')) {
     return done();
@@ -51,6 +42,15 @@ userSchema.statics.createUser = async (userPayload: IUserPayload) => {
   const newUser = new userModel(userPayload);
   const savedUser = await newUser.save();
   return savedUser.id;
+};
+
+userSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  obj.id = obj._id;
+  ['_id', '__v', 'password'].map((key) => {
+    delete obj[key];
+  });
+  return obj;
 };
 
 userSchema.methods.verifyPassword = function (userPassword: string) {
