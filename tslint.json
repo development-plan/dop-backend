@@ -9,5 +9,11 @@
       "dist",
       "node_modules"
     ]
+  },
+  "rules": {
+    "typedef": [
+      true,
+      "object-destructuring"
+    ]
   }
 }

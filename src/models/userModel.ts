@@ -15,6 +15,7 @@ export interface IUserPayload {
 export interface IUser extends IUserPayload, mongoose.Document {}
 
 export interface IUserModel extends IUser {
+  id: string;
   verifyPassword(userPassword: string): boolean;
 }
 

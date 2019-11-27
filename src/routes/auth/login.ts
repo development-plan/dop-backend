@@ -7,8 +7,13 @@ import userModel, { IUserModel } from '../../models/userModel';
 
 const router = Router();
 
+interface ILoginPayload {
+  email: string;
+  password: string;
+}
+
 router.post('/', expressAsyncHandler(async (req, res, _) => {
-  const { email, password } = req.body;
+  const { email, password }: ILoginPayload = req.body;
   if (!email || !password) {
     return res.status(400).json({
       message: '사용자 이메일과 패스워드 값이 필요합니다.',

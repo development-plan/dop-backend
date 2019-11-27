@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 
-import userModel, { IUser, IUserModel } from '../../models/userModel';
+import userModel, { IUserModel, IUserPayload } from '../../models/userModel';
 
 const router = Router();
 
 router.post('/', expressAsyncHandler(async (req, res, _) => {
-  const user = req.body;
+  const user: IUserPayload = req.body;
 
   // validation
   const userKeys = ['name', 'nickname', 'email', 'password', 'tel', 'image'];
