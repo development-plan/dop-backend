@@ -13,7 +13,7 @@ export interface IPostModel extends IPost {
   id: string;
   author: string;
   created: Date;
-  likes: number;
+  likes: string[];
 }
 
 const postSchema: Schema = new mongoose.Schema({
@@ -21,7 +21,7 @@ const postSchema: Schema = new mongoose.Schema({
   content: { type: String, required: true },
   created: { type: Date, default: Date.now },
   images: { type: [String], default: [] },
-  likes: { type: Number, default: 0 },
+  likes: { type: [String], default: [] },
   tags: { type: [String], default: [] },
   title: { type: String, required: true },
 });
