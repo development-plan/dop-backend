@@ -2119,11 +2119,6 @@ ts-node@^8.5.2:
     source-map-support "^0.5.6"
     yn "^3.0.0"
 
-ts-transformer-keys@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/ts-transformer-keys/-/ts-transformer-keys-0.4.1.tgz#209a07caea19cf6258ee2e159d5ad20982d8bb5d"
-  integrity sha512-CahLCOHt6MS8Sixz5cU8XovuKOoP6hnQd91pxG3a7iuuLsdrbWLveQvKi7d/FJjRhEtVELp3bMnqvSpm+nCgKw==
-
 tsc-watch@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/tsc-watch/-/tsc-watch-4.0.0.tgz#bc50db2351babd3df1978f42b9742695cf2874d3"

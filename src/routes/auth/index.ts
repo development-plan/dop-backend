@@ -5,7 +5,7 @@ import login from './login';
 
 const router = Router();
 
-router.use('/joins', join);
+router.use('/join', join);
 router.use('/login', login);
 
 export default router;

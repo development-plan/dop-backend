@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import { keys } from 'ts-transformer-keys';
 
 import userModel, { IUser } from '../../models/userModel';
 
@@ -10,7 +9,7 @@ router.post('/', expressAsyncHandler(async (req, res, _) => {
   const user = req.body;
 
   // validation
-  const userKeys = keys<IUser>();
+  const userKeys = ['name', 'nickname', 'email', 'password', 'tel', 'image'];
   userKeys.map((key) => {
     if (!Object(user).hasOwnProperty(key)) {
       return res.status(400).json({
