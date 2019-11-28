@@ -49,11 +49,17 @@ export interface IAuthRequest extends express.Request {
 }
 
 type TAuthMiddleWare
-  = (req: IAuthRequest, _: express.Response, next: express.NextFunction) => Promise<void>;
+  = (req: IAuthRequest, res: express.Response, next: express.NextFunction)
+  => Promise<void | express.Response>;
 
 export const authMiddleware: TAuthMiddleWare
-  = async (req: IAuthRequest, _: express.Response, next: express.NextFunction) => {
+  = async (req: IAuthRequest, res: express.Response, next: express.NextFunction) => {
     const { id }: { id: string } = auth().authenticate();
+    if (!id) {
+      return res.json({
+        message: 'JWT 인증에 실패했습니다.',
+      });
+    }
     req.identity = await userModel.findById({ id });
     return next();
   };
