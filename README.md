@@ -371,3 +371,18 @@ JWT 토큰이 필요합니다.
 
 #### [GET] `/search/{query}`
 `query` 텍스트가 포함된 포스트와, 답변을 모두 검색한 뒤 포스트 주소와 이미지 주소 목록을 반환합니다.
+
+##### 요청
+##### 응답
+```json
+{
+  "result": [
+    {
+      "images": [
+        "http://via.placeholder.com/150.png"
+      ],
+      "id": "5ddfe7d72456d93ee091cd3e"
+    }
+  ]
+}
+```
