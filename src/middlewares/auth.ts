@@ -56,7 +56,7 @@ export const authMiddleware: TAuthMiddleWare
   = async (req: IAuthRequest, res: express.Response, next: express.NextFunction) => {
     const { id }: { id: string } = auth().authenticate();
     if (!id) {
-      return res.json({
+      return res.status(401).json({
         message: 'JWT 인증에 실패했습니다.',
       });
     }
