@@ -1,13 +1,13 @@
 import mongoose, { Model, Schema } from 'mongoose';
 
-export interface ISchedule {
+export interface ISchedulePayload {
   content: string;
-  date: Date;
+  date: number;
 }
 
 export interface IAnswerPayload {
   content: string;
-  schedule: ISchedule[];
+  schedule: ISchedulePayload[];
 }
 
 export interface IAnswer extends IAnswerPayload, mongoose.Document {}

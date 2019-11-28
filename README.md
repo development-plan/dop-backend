@@ -62,9 +62,9 @@
   id: '5dde748644d279861608625e', // 답변 식별자
   content: '앱 개발이 처음이신데, 리액트를 다룬 적 있고 멀티 플랫폼 개발을 원하신다면 React Native는 어때요?',
   schedule: [
-    { date: Date(), content: '프로젝트 초기화하기' },
-    { date: Date(), content: '홈 스크린 만들기' },
-    { date: Date(), content: 'React Navigation 적용하기' },
+    { date: 1574956959, content: '프로젝트 초기화하기' }, // timestamp by `new Date().getTime()`
+    { date: 1574956959, content: '홈 스크린 만들기' },
+    { date: 1574956959, content: 'React Navigation 적용하기' },
   ],
   post: '5dde748551787a36434f6f21', // 답변을 달 포스트
   author: '507f1f77bcf86cd799439011', // 게시한 사용자의 식별자
@@ -294,9 +294,67 @@ JWT 토큰이 필요합니다.
 JWT 토큰이 필요합니다.
 
 #### [POST] `/answer/{postID}`
+`postID`의 포스트에 새로운 답변을 추가합니다.
+
+#### 요청
+`http://localhost:5000/answer/5ddfe7d72456d93ee091cd3e`
+
+```json
+{
+  "content": "앱 개발이 처음이신데, 리액트를 다룬 적 있고 멀티 플랫폼 개발을 원하신다면 React Native는 어때요?",
+  "schedule": [
+    { "date": 1574956959, "content": "프로젝트 초기화하기" },
+    { "date": 1574956959, "content": "홈 스크린 만들기" },
+    { "date": 1574956959, "content": "React Navigation 적용하기" }
+  ]
+}
+```
+
+#### 응답
+```json
+{
+    "id": "5ddff0b60b20274c6fbfcc2a"
+}
+```
+
 #### [PUT] `/answer/{answerID}`
+
+#### 요청
+```json
+{
+  "content": "앱 개발 처음임? 리액트를 다룬 적 있음? 멀티 플랫폼 개발을 원함? React Native는 어떰?",
+  "schedule": [
+    { "date": 1574956959, "content": "프로젝트 초기화하셈" },
+    { "date": 1574956959, "content": "홈 스크린 만드셈" },
+    { "date": 1574956959, "content": "React Navigation 적용하셈" }
+  ]
+}
+```
+
+##### 응답
+성공 시 `200`
+
 #### [DELETE] `/answer/{answerID}`
+
+##### 요청
+```json
+{}
+```
+
+##### 응답
+성공 시 `200`
+
 #### [POST] `/answer/{answerID}/like`
+
+##### 요청
+`http://localhost:5000/answer/5ddff0b60b20274c6fbfcc2a/like`
+
+```json
+{}
+```
+
+##### 응답
+성공 시 `200`
 
 ### Upload
 
