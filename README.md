@@ -12,6 +12,7 @@
   - [*Post](#Post-1)
   - [*Answer](#Answer-1)
   - [Upload](#Upload)
+  - [Search](#Search)
 
 ## Models
 
@@ -26,7 +27,8 @@
   email: 'test@example.com', // 이메일
   password: 'pa$$w0Rd', // 패스워드
   tel: '01012345678', // 전화번호
-  image: 'https://github.com/junhoyeo.png', // 프로필 이미지 URL (기본으로 default 이미지 경로)
+  image: 'https://github.com/junhoyeo.png', // 프로필 이미지 URL
+  // 기본 프로필 이미지는 값이 null일 때 프엔에서 처리하도록 하겠습니다,,,
   created: Date.now(), // 가입일
 }
 ```
@@ -356,6 +358,16 @@ JWT 토큰이 필요합니다.
 ##### 응답
 성공 시 `200`
 
+-----
+
 ### Upload
 
 #### [POST] `/upload`
+새로운 이미지를 업로드하고 서버 상의 주소를 받습니다. 프로필이나 게시물에 사진을 올릴 때 사용하세요.
+
+-----
+
+### Search
+
+#### [GET] `/search/{query}`
+`query` 텍스트가 포함된 포스트와, 답변을 모두 검색한 뒤 포스트 주소와 이미지 주소 목록을 반환합니다.
