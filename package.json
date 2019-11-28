@@ -34,6 +34,7 @@
     "@types/node": "^12.12.12",
     "@types/supertest": "^2.0.8",
     "chai": "^4.2.0",
+    "lint-staged": "^10.0.0-beta.6",
     "mocha": "^6.2.2",
     "nodemon": "^2.0.1",
     "supertest": "^4.0.2",
