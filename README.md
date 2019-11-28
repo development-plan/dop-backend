@@ -14,7 +14,7 @@
   password: 'pa$$w0Rd', // 패스워드
   tel: '01012345678', // 전화번호
   image: 'https://github.com/junhoyeo.png', // 프로필 이미지 URL (기본으로 default 이미지 경로)
-  joined: Date.now(), // 가입일
+  created: Date.now(), // 가입일
 }
 ```
 
@@ -30,7 +30,7 @@
     'http://via.placeholder.com/150.png',
   ],
   author: '507f1f77bcf86cd799439011', // 게시한 사용자의 식별자
-  timestamp: Date.now(),
+  created: Date.now(),
   tags: [ // 태그 리스트
     '안드로이드',
     '앱개발',
@@ -42,13 +42,34 @@
 ```
 
 ### Answer
+답변 모델입니다.
+
+```js
+{
+  id: '5dde748644d279861608625e', // 답변 식별자
+  content: '앱 개발이 처음이신데, 리액트를 다룬 적 있고 멀티 플랫폼 개발을 원하신다면 React Native는 어때요?',
+  schedule: [
+    { date: Date(), content: '프로젝트 초기화하기' },
+    { date: Date(), content: '홈 스크린 만들기' },
+    { date: Date(), content: 'React Navigation 적용하기' },
+  ],
+  post: '5dde748551787a36434f6f21', // 답변을 달 포스트
+  author: '507f1f77bcf86cd799439011', // 게시한 사용자의 식별자
+  created: Date.now(),
+  likes: [ // 추천하는 사용자의 식별자 목록
+    '507f1f77bcf86cd799439011'
+  ],
+}
+```
 
 ## Routes
 
-### [POST] `/auth/join`
+### Auth
+
+#### [POST] `/auth/join`
 새로운 사용자를 생성합니다.
 
-#### 요청
+##### 요청
 
 ```json
 {
@@ -61,7 +82,7 @@
 }
 ```
 
-#### 응답
+##### 응답
 
 ```json
 {
@@ -69,10 +90,10 @@
 }
 ```
 
-### [POST] `/auth/login`
+#### [POST] `/auth/login`
 사용자 이메일과 패스워드로 인증을 수행한 뒤 액세스 토큰을 발급합니다.
 
-#### 요청
+##### 요청
 
 ```json
 {
@@ -81,7 +102,7 @@
 }
 ```
 
-#### 응답
+##### 응답
 
 ```json
 {
@@ -89,3 +110,19 @@
   "token": "ACCESS_TOKEN"
 }
 ```
+
+### Post
+
+#### [POST] `/post`
+#### [GET] `/post`
+#### [GET] `/post/{postID}`
+#### [PUT] `/post/{postID}`
+#### [DELETE] `/post/{postID}`
+#### [POST] `/post/{postID}/like`
+
+### Answer
+
+#### [POST] `/answer/{postID}`
+#### [PUT] `/answer/{answerID}`
+#### [DELETE] `/answer/{answerID}`
+#### [POST] `/answer/{answerID}/like`
