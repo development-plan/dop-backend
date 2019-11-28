@@ -33,7 +33,7 @@ answerSchema.statics.createAnswer
   = async (answerPayload: IAnswerPayload, authorID: string, postID: string) => {
     const newAnswer: IAnswerModel = new answerModel({
       ...answerPayload,
-      ...{ authorID, postID },
+      ...{ author: authorID, post: postID },
     });
     const savedAnswer: IAnswerModel = await newAnswer.save();
     return savedAnswer;

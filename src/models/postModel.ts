@@ -29,7 +29,7 @@ const postSchema: Schema = new mongoose.Schema({
 postSchema.statics.createPost = async (postPayload: IPostPayload, authorID: string) => {
   const newPost: IPostModel = new postModel({
     ...postPayload,
-    ...{ authorID },
+    ...{ author: authorID },
   });
   const savedPost: IPostModel = await newPost.save();
   return savedPost;
