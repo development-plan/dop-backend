@@ -17,7 +17,7 @@ export interface IPostModel extends IPost {
 }
 
 const postSchema: Schema = new mongoose.Schema({
-  author: { type: String },
+  author: { type: String, required: true },
   content: { type: String, required: true },
   created: { type: Date, default: Date.now },
   images: { type: [String], default: [] },
@@ -27,7 +27,10 @@ const postSchema: Schema = new mongoose.Schema({
 });
 
 postSchema.statics.createPost = async (postPayload: IPostPayload, authorID: string) => {
-  const newPost: IPostModel = new postModel(postPayload);
+  const newPost: IPostModel = new postModel({
+    ...postPayload,
+    ...{ authorID },
+  });
   const savedPost: IPostModel = await newPost.save();
   return savedPost;
 };
