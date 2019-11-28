@@ -23,14 +23,12 @@ export interface IAuth {
 
 export default function auth(): IAuth {
   const strategy: passport.Strategy = new Strategy(params, (payload, done) => {
-    const user: any = userModel.find((u: IUser) => {
-      return u.id === payload.id;
+    userModel.findOne({ _id: payload.id }, (_, user) => {
+      if (user) {
+        return done(null, user);
+      }
+      return done(new Error('User not found'), null);
     });
-
-    if (user) {
-      return done(null, user);
-    }
-    return done(new Error('User not found'), null);
   });
   passport.use(strategy);
 
@@ -49,17 +47,17 @@ export interface IAuthRequest extends express.Request {
 }
 
 type TAuthMiddleWare
-  = (req: IAuthRequest, res: express.Response, next: express.NextFunction)
-  => Promise<void | express.Response>;
+  = [
+    any,
+    (req: IAuthRequest, res: express.Response, next: express.NextFunction)
+      => void | Promise<void | express.Response>
+  ];
 
-export const authMiddleware: TAuthMiddleWare
-  = async (req: IAuthRequest, res: express.Response, next: express.NextFunction) => {
-    const { id }: { id: string } = auth().authenticate();
-    if (!id) {
-      return res.status(401).json({
-        message: 'JWT 인증에 실패했습니다.',
-      });
-    }
-    req.identity = await userModel.findById({ id });
+export const authMiddleware: TAuthMiddleWare = [
+  auth().authenticate(),
+  (req: IAuthRequest, res: express.Response, next: express.NextFunction) => {
+    req.identity = req.user as any;
+    delete req.user;
     return next();
-  };
+  },
+];

@@ -62,6 +62,18 @@
 }
 ```
 
+## Authorization
+
+### 요청
+```js
+{
+  'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...'
+}
+```
+
+### 실패 시 응답
+`401`
+
 ## Routes
 
 ### Auth
@@ -107,16 +119,35 @@
 }
 ```
 
-### Post
+### *Post
+JWT 토큰이 필요합니다.
 
 #### [POST] `/post`
 새로운 게시글을 올립니다.
 
 ##### 요청
 ```json
+{
+  "title": "모바일 지도 앱을 만들어 보고 싶어요!",
+  "content": "구글 지도 같은 앱 서비스를 만들고 싶은데 앱 개발에 대한 지식이 없어 시작할 엄두가 나지 않습니다 ㅜㅜ 도와주세요",
+  "images": [
+    "http://via.placeholder.com/150.png"
+  ],
+  "tags": [
+    "안드로이드",
+    "앱개발"
+  ]
+}
 ```
 
 ##### 응답
+생성된 게시물의 식별자를 반환합니다.
+
+```json
+{
+    "id": "5ddfe7d72456d93ee091cd3e"
+}
+```
 
 #### [GET] `/post`
 모든 게시글의 정보가 있는 목록을 가져옵니다. 나중에 시간이 난다면 페이징도 지원하도록 고칠게요.
@@ -164,7 +195,8 @@
 ##### 응답
 성공 시 `200`
 
-### Answer
+### *Answer
+JWT 토큰이 필요합니다.
 
 #### [POST] `/answer/{postID}`
 #### [PUT] `/answer/{answerID}`
