@@ -5,9 +5,10 @@ import answerModel, { IAnswerModel } from '../../models/answerModel';
 
 const router: express.IRouter = Router();
 
-router.use('/', authMiddleware);
-router.post('/', expressAsyncHandler(
+router.use('/:answerID', authMiddleware);
+router.put('/:answerID', expressAsyncHandler(
   async (req: IAuthRequest, res: express.Response, _: express.NextFunction) => {
+    const answerID: string = req.params.answerID;
     return res.json({});
   }),
 );
