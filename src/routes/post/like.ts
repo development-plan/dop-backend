@@ -7,7 +7,7 @@ const router: express.IRouter = Router();
 
 // toggle likes on post
 router.use('/:postID/like', authMiddleware);
-router.put('/:postID/like', expressAsyncHandler(
+router.post('/:postID/like', expressAsyncHandler(
   async (req: IAuthRequest, res: express.Response, _: express.NextFunction) => {
     const postID: string = req.params.postID;
     const post: IPostModel = await postModel.findById(postID);
