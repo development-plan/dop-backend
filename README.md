@@ -1,5 +1,18 @@
 # DOP Backend API [![Typed with TypeScript](https://badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=555555&color=blue)](https://github.com/microsoft/TypeScript) [![Code Style](https://badgen.net/badge/style/Airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 
+## TOC
+
+- [Models](#Models)
+  - [User](#User)
+  - [Post](#Post)
+  - [Answer](#Answer)
+- [Authorization](#Authorization)
+- [Routes](#Routes)
+  - [Auth](#Auth)
+  - [*Post](#Post-1)
+  - [*Answer](#Answer-1)
+  - [Upload](#Upload)
+
 ## Models
 
 ### User
