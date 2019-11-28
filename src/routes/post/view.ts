@@ -15,11 +15,11 @@ router.get('/', expressAsyncHandler(
   async (req: IAuthRequest, res: express.Response, _: express.NextFunction) => {
     const posts: any = await postModel.find({});
     return res.json({
-      posts: await posts.map(async (post: IPostModel) => {
+      posts: await Promise.all(posts.map(async (post: IPostModel) => {
         const author: IUserModel = await userModel.findById(post.author);
         const answers: any = await answerModel.find({ post: post.id });
-        return { ...post, author, answers };
-      }),
+        return { ...post.toJSON(), author, answers };
+      })),
     });
   }),
 );
@@ -29,11 +29,11 @@ router.use('/:postID', authMiddleware);
 router.get('/:postID', expressAsyncHandler(
   async (req: IAuthRequest, res: express.Response, _: express.NextFunction) => {
     const id: string = req.params.postID;
-    const post: IPostModel = await postModel.findById({ id });
+    const post: IPostModel = await postModel.findById(id);
     const author: IUserModel = await userModel.findById(post.author);
     const answers: any = await answerModel.find({ post: id });
     return res.json({
-      post: { ...post, author, answers },
+      post: { ...post.toJSON(), author, answers },
     });
   }),
 );

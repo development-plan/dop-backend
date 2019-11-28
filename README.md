@@ -165,14 +165,70 @@ JWT 토큰이 필요합니다.
 #### [GET] `/post`
 모든 게시글의 정보가 있는 목록을 가져옵니다. 나중에 시간이 난다면 페이징도 지원하도록 고칠게요.
 
-##### 요청
 ##### 응답
+```json
+{
+  "posts": [
+    {
+      "images": [
+        "http://via.placeholder.com/150.png"
+      ],
+      "likes": [],
+      "tags": [
+          "안드로이드",
+          "앱개발"
+      ],
+      "title": "모바일 지도 앱을 만들어 보고 싶어요!",
+      "content": "구글 지도 같은 앱 서비스를 만들고 싶은데 앱 개발에 대한 지식이 없어 시작할 엄두가 나지 않습니다 ㅜㅜ 도와주세요",
+      "author": {
+        "name": "여준호",
+        "nickname": "주노",
+        "email": "test@example.com",
+        "tel": "01012345678",
+        "image": "https://github.com/junhoyeo.png",
+        "joined": "2019-11-27T13:05:09.163Z",
+        "id": "5dde748551787a36434f6f21"
+      },
+      "created": "2019-11-28T15:28:52.437Z",
+      "id": "5ddfe7b4d5533a3e6897243b",
+      "answers": []
+    }
+  ]
+}
+```
 
 #### [GET] `/post/{postID}`
 `postID`를 가지는 특정 게시글의 정보를 가져옵니다.
 
-##### 요청
 ##### 응답
+```json
+{
+  "post": {
+    "images": [
+      "http://via.placeholder.com/150.png"
+    ],
+    "likes": [],
+    "tags": [
+      "안드로이드",
+      "앱개발"
+    ],
+    "title": "모바일 지도 앱을 만들어 보고 싶어요!",
+    "content": "구글 지도 같은 앱 서비스를 만들고 싶은데 앱 개발에 대한 지식이 없어 시작할 엄두가 나지 않습니다 ㅜㅜ 도와주세요",
+    "author": {
+      "name": "여준호",
+      "nickname": "주노",
+      "email": "test@example.com",
+      "tel": "01012345678",
+      "image": "https://github.com/junhoyeo.png",
+      "joined": "2019-11-27T13:05:09.163Z",
+      "id": "5dde748551787a36434f6f21"
+    },
+    "created": "2019-11-28T15:28:52.437Z",
+    "id": "5ddfe7b4d5533a3e6897243b",
+    "answers": []
+  }
+}
+```
 
 #### [PUT] `/post/{postID}`
 `postID`를 가지는 특정 게시글의 정보를 수정합니다.
