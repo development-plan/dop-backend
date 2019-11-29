@@ -365,6 +365,18 @@ JWT 토큰이 필요합니다.
 #### [POST] `/upload`
 새로운 이미지를 업로드하고 서버 상의 주소를 받습니다. 프로필이나 게시물에 사진을 올릴 때 사용하세요.
 
+##### 요청
+[upload.test.html](./upload.test.html)
+
+##### 응답
+```json
+{
+  "path": "uploads/GGG.png"
+}
+```
+
+- 업로드된 이미지는 `http://example.com/uploads/GGG.png` 에서 액세스 가능
+
 -----
 
 ### Search
